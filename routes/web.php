@@ -31,6 +31,8 @@ Route::prefix('authors')->group(function() {
     
     // authors/create
     Route::get('create', 'App\Http\Controllers\AuthorController@create')->name('author.create');
+
+    Route::post('store', 'App\Http\Controllers\AuthorController@store')->name('author.store');
     // authors/edit
     Route::get('edit', 'App\Http\Controllers\AuthorController@edit')->name('author.edit');
 

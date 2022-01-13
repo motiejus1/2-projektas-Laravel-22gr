@@ -6,6 +6,9 @@ use App\Models\Author;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
 
+use Illuminate\Http\Request;
+
+
 class AuthorController extends Controller
 {
     /**
@@ -15,7 +18,11 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return view('authors.index'); // authors/index.blade.php
+
+        $authors = Author::all();
+
+        return view('authors.index', ['authors' => $authors]);
+     // authors/index.blade.php
     }
 
     /**
@@ -34,9 +41,29 @@ class AuthorController extends Controller
      * @param  \App\Http\Requests\StoreAuthorRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAuthorRequest $request)
+    public function store(Request $request)
     {
-        //
+        //negrazinti jokio vaizdo
+        $author = new Author;
+
+        // {id: null, name: null, surname:null, description:null, phone:null ....}
+        $author->name = $request->author_name; // $_POST['author_name']
+        $author->surname = $request->author_surname;
+        $author->description = $request->author_description;
+        $author->phone = $request->author_phone;
+
+        $author->save();
+
+        return redirect()->route('author.index');
+
+        //save 
+        //Kreipiasi i modeli
+        //Jam perduoda $author
+        //Modeliui pasako vykdyk sql uzklausa
+        // INSERT INTO
+
+        // {id: null, name: 'Labas', surname:null, description:null, phone:null ....}
+       
     }
 
     /**
